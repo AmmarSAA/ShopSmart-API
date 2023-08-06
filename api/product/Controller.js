@@ -9,7 +9,7 @@ const { connect } = require('mongoose');
 require('dotenv').config();
 
 // /api/product/getProduct
-const getAllProducts = async (req, res) => {
+const getProduct = async (req, res) => {
 	try {
 		// Connection to database
 		await connect(process.env.MONGO_URI);
@@ -163,7 +163,7 @@ const updateProduct = async (req, res) => {
 };
 
 module.exports = {
-	getAllProducts,
+	getProduct,
 	getProductByName,
 	createProduct,
 	deleteProduct,
