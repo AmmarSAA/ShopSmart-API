@@ -12,70 +12,65 @@ const { sign } = require('jsonwebtoken')
 
 ///api/users/signin
 const Signin = async (req, res) => {
-    const { Email, Password } = req.body
+    const { Email, Password } = req.body;
 
-    //Email & password required for signin
-    //don't proceed to signin
+    // Email & password required for signin
+    // don't proceed to signin
     if (!Email || !Password) {
         res.status(403).json({
-            message: "Oops! Missing Required Field."
-        })
+            message: "Oops! Missing Required Field.",
+        });
     }
-    //proceed to signin
+    // proceed to signin
     else {
-
         try {
-            //Connection to database
-        await connect(process.env.MONGO_URI)
-            //search email
-            const CheckUser = await User.findOne({ Email })
-            //if email not found, stop
+            // Connection to database
+            await connect(process.env.MONGO_URI);
+            // search email
+            const CheckUser = await User.findOne({ Email });
+            // if email not found, stop
             if (!CheckUser) {
                 res.status(404).json({
-                    message: "Oops! User Don't Exists."
-                })
+                    message: "Oops! User Don't Exists.",
+                });
             }
-            //email found, proceed
+            // email found, proceed
             else {
-                //decrypt pswd hash and compare from db
-                const decryptPassword = await compare(Password, CheckUser.Password)
-                //if email and password matches, proceed for token generation
-                //generates token
+                // decrypt pswd hash and compare from db
+                const decryptPassword = await compare(Password, CheckUser.Password);
+                // if email and password matches, proceed for token generation
+                // generates token
                 if (Email == CheckUser.Email && decryptPassword) {
-
                     const UserData = {
                         Email: CheckUser.Email,
                         _id: CheckUser._id,
                         Role: CheckUser.Role,
                         ProfilePic: CheckUser.ProfilePic,
-                        Joining: CheckUser.Joining
-                    }
+                        creationDate: CheckUser.creationDate, // Corrected property name
+                    };
 
-                    const token = sign(UserData, process.env.JWT_SECRET)
+                    const token = sign(UserData, process.env.JWT_SECRET);
 
                     res.json({
                         message: "Success! Logged In.",
-                        token
-                    })
+                        token,
+                    });
                 }
-                //email exists but wrong password
+                // email exists but wrong password
                 else {
                     res.status(403).json({
-                        message: "Oops! Invalid Password."
-                    })
+                        message: "Oops! Invalid Password.",
+                    });
                 }
             }
-
-        }
-
-        //catches error and broadcasts
-        catch (error) {
+        } catch (error) {
+            // catches error and broadcasts
             res.json({
-                message: error.message
-            })
+                message: error.message,
+            });
         }
     }
-}
+};
 
 ///api/users/signup
 const Signup = async (req, res) => {
@@ -93,7 +88,7 @@ const Signup = async (req, res) => {
 
         try {
             //Connection to database
-        await connect(process.env.MONGO_URI)
+            await connect(process.env.MONGO_URI)
             //search email
             const CheckUser = await User.findOne({ Email })
             //if email found, stop
