@@ -52,6 +52,10 @@ const ProductSchema = new Schema({
         type: Date,
         default: null,
     },
+    Rating: {
+        type: Number,
+        default: null,
+    },
 });
 
 const Products = model('Product', ProductSchema);
