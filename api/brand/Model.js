@@ -1,24 +1,30 @@
 /****************************
-* File Name: Model.js 		*
+* File name: Model.js 		*
 * Author: Ammar S.A.A 		*
 * Output: Model for brand 	*
 ****************************/
 
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
-const BrandSchema = new Schema(
-    {
-        Name: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        Image: {
-            type: String,
-            required: true
-        }
-    }
-)
+const BrandSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    image: {
+        type: String,
+        required: true,
+    },
+    creationDate: {
+        type: Date,
+        default: Date.now,
+    },
+    updationDate: {
+        type: Date,
+        default: null,
+    },
+});
 
-const Brands = model('brand', BrandSchema)
-module.exports = Brands
+const Brand = model('Brand', BrandSchema);
+module.exports = Brand;
