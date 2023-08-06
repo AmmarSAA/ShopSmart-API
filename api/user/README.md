@@ -105,7 +105,7 @@ Copy code
 
 **HTTP Method:** PUT
 
-**Endpoint:** `/api/users/upadateUser`
+**Endpoint:** `/api/users/updateUser`
 
 **Request Body:**
 {
