@@ -52,7 +52,7 @@ const Signin = async (req, res) => {
                     const token = sign(UserData, process.env.JWT_SECRET);
 
                     res.json({
-                        message: "Success! Logged In.",
+                        message: "Success! Signed In.",
                         token,
                     });
                 }
