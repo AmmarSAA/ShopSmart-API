@@ -1,5 +1,5 @@
 /********************************
-* File Name: Controller.js      *
+* File name: Controller.js      *
 * Author: Ammar S.A.A           *
 * Output: Controller for users  *
 ********************************/
@@ -12,12 +12,12 @@ const { sign } = require('jsonwebtoken')
 
 ///api/users/signin
 const Signin = async (req, res) => {
-    const { Email, Password } = req.body;
+    const { email, password } = req.body;
 
-    // Email & password required for signin
+    // email & password required for signin
     // don't proceed to signin
-    if (!Email || !Password) {
-        res.status(403).json({
+    if (!email || !password) {
+        res.status(400).json({
             message: "Oops! Missing Required Field.",
         });
     }
@@ -27,7 +27,7 @@ const Signin = async (req, res) => {
             // Connection to database
             await connect(process.env.MONGO_URI);
             // search email
-            const CheckUser = await User.findOne({ Email });
+            const CheckUser = await User.findOne({ email });
             // if email not found, stop
             if (!CheckUser) {
                 res.status(404).json({
@@ -37,12 +37,12 @@ const Signin = async (req, res) => {
             // email found, proceed
             else {
                 // decrypt pswd hash and compare from db
-                const decryptPassword = await compare(Password, CheckUser.Password);
+                const decryptpassword = await compare(password, CheckUser.password);
                 // if email and password matches, proceed for token generation
                 // generates token
-                if (Email == CheckUser.Email && decryptPassword) {
+                if (email === CheckUser.email && decryptpassword) {
                     const UserData = {
-                        Email: CheckUser.Email,
+                        email: CheckUser.email,
                         _id: CheckUser._id,
                         Role: CheckUser.Role,
                         ProfilePic: CheckUser.ProfilePic,
@@ -59,7 +59,7 @@ const Signin = async (req, res) => {
                 // email exists but wrong password
                 else {
                     res.status(403).json({
-                        message: "Oops! Invalid Password.",
+                        message: "Oops! Invalid password.",
                     });
                 }
             }
@@ -75,11 +75,11 @@ const Signin = async (req, res) => {
 ///api/users/signup
 const Signup = async (req, res) => {
 
-    const { Name, Email, Password } = req.body
-    //Name, Email & password required for signup
+    const { name, email, password } = req.body
+    //name, email & password required for signup
     //don't proceed to signup
-    if (!Name || !Email || !Password) {
-        res.status(403).json({
+    if (!name || !email || !password) {
+        res.status(400).json({
             message: "Oops! Missing Required Field."
         })
     }
@@ -90,17 +90,17 @@ const Signup = async (req, res) => {
             //Connection to database
             await connect(process.env.MONGO_URI)
             //search email
-            const CheckUser = await User.findOne({ Email })
+            const CheckUser = await User.findOne({ email })
             //if email found, stop
             if (CheckUser) {
                 res.json({
-                    message: "Oops! Email Already Exists."
+                    message: "Oops! email Already Exists."
                 })
             }
             //proceed for signup
             else {
                 //create user with encrypted password
-                await User.create({ Name, Email, Password: await hash(Password, 12) })
+                await User.create({ name, email, password: await hash(password, 12) })
                 res.json({
                     message: "Success! New User Added."
                 })
@@ -147,10 +147,10 @@ const getUsers = async (req, res) => {
 ///api/users/updateUser
 const updateUser = async (req, res) => {
 
-    const { _id, Email, Name, ProfilePic } = req.body
+    const { _id, email, name, ProfilePic } = req.body
 
     const filter = { _id };
-    const update = { Email, Name, ProfilePic };
+    const update = { email, name, ProfilePic };
 
     try {
         //connection

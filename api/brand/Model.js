@@ -15,15 +15,9 @@ const BrandSchema = new Schema({
     image: {
         type: String,
         required: true,
-    },
-    creationDate: {
-        type: Date,
-        default: Date.now,
-    },
-    updationDate: {
-        type: Date,
-        default: null,
-    },
+    }
+},{
+    timestamps: true, // Automatically manage createdAt and updatedAt fields
 });
 
 const Brand = model('Brand', BrandSchema);

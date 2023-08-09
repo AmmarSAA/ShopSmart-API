@@ -1,6 +1,6 @@
 /****************************
-* File name: Model.js 		*
-* Author: Ammar S.A.A 		*
+* File name: Model.js       *
+* Author: Ammar S.A.A       *
 * Output: Model for product *
 ****************************/
 
@@ -44,18 +44,12 @@ const ProductSchema = new Schema({
         type: String,
         required: true,
     },
-    creationDate: {
-        type: Date,
-        default: Date.now,
-    },
-    updationDate: {
-        type: Date,
-        default: null,
-    },
     Rating: {
         type: Number,
         default: null,
     },
+}, {
+    timestamps: true, // Automatically manage createdAt and updatedAt fields
 });
 
 const Products = model('Product', ProductSchema);
