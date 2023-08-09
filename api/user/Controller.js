@@ -44,12 +44,14 @@ const Signin = async (req, res) => {
                     const UserData = {
                         email: CheckUser.email,
                         _id: CheckUser._id,
-                        Role: CheckUser.Role,
-                        ProfilePic: CheckUser.ProfilePic,
-                        creationDate: CheckUser.creationDate, // Corrected property name
+                        role: CheckUser.role,
+                        profilePic: CheckUser.profilePic,
+                        createdAt: CheckUser.creationDate,
+                        name: CheckUser.name
                     };
 
                     const token = sign(UserData, process.env.JWT_SECRET);
+
 
                     res.json({
                         message: "Success! Signed In.",
