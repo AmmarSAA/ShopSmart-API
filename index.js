@@ -16,7 +16,7 @@ app.use('/api/users', require('./api/user/Routes'));
 app.use('/api/category', require('./api/category/Routes'));
 app.use('/api/brand', require('./api/brand/Routes'));
 app.use('/api/product', require('./api/product/Routes'));
-app.use('/api/orders', require('./api/orders/Routes'))
+app.use('/api/order', require('./api/order/Routes'))
 
 app.listen(port, () => {
   console.log(`ShopSmart Server launched on port ${port}`);
