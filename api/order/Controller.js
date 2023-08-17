@@ -76,15 +76,15 @@ const getOrders = async (req, res) => {
 
 }
 
-const getOrderByName = async (req, res) => {
-    const { customerName } = req.query
+const getOrderByEmail = async (req, res) => {
+    const { customerEmail } = req.query
 
     try {
         //connection
         //Connection to database
         await connect(process.env.MONGO_URI)
         //find one from name and fetch it's details
-        const customer = await Order.findOne({ customerName })
+        const customer = await Order.findOne({ customerEmail })
 
         if (!customer) {
             return res.json({
@@ -92,6 +92,32 @@ const getOrderByName = async (req, res) => {
             });
         }
         res.json({ customer })
+    }
+
+    //catches error and broadcasts
+    catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+}
+
+const getOrderByID = async (req, res) => {
+    const { _id } = req.query
+
+    try {
+        //connection
+        //Connection to database
+        await connect(process.env.MONGO_URI)
+        //find one from name and fetch it's details
+        const customerId = await Order.findOne({ _id })
+
+        if (!customer) {
+            return res.json({
+                message: "Oops! Customer Not Found."
+            });
+        }
+        res.json({ customerId })
     }
 
     //catches error and broadcasts
@@ -134,7 +160,7 @@ const updateOrder = async (req, res) => {
 }
 
 const deleteOrder = async (req, res) => {
-   
+
     const { _id } = req.body
 
     try {
@@ -156,4 +182,4 @@ const deleteOrder = async (req, res) => {
 
 }
 
-module.exports = { createOrder, getOrders, getOrderByName, updateOrder, deleteOrder }
+module.exports = { createOrder, getOrders, getOrderByEmail, getOrderByID, updateOrder, deleteOrder }
