@@ -4,7 +4,6 @@
 * Output: Controller for orders 	*
 ********************************/
 
-// const Orders = require('./Model');
 const { connect } = require('mongoose');
 require('dotenv').config();
 const User = require('../user/Model');
@@ -135,9 +134,26 @@ const updateOrder = async (req, res) => {
 }
 
 const deleteOrder = async (req, res) => {
-    res.json({
-        message: "Hi delete"
-    })
+   
+    const { _id } = req.body
+
+    try {
+        //connection
+        //Connection to database
+        await connect(process.env.MONGO_URI)
+        //find one from _id and delete it
+        await Order.deleteOne({ _id })
+        //Success Message
+        res.json({ message: "Success! Order Deleted." })
+    }
+
+    //catches error and broadcasts
+    catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+
 }
 
 module.exports = { createOrder, getOrders, getOrderByName, updateOrder, deleteOrder }
