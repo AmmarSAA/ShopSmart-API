@@ -4,6 +4,7 @@
 * Output: Model for orders 	*
 ********************************/
 
+const { Timestamp } = require('mongodb');
 const { Schema, model } = require('mongoose');
 
 const OrderSchema = new Schema(
@@ -34,9 +35,11 @@ const OrderSchema = new Schema(
         },
         status: {
             type: String,
-            required: true
+            default : "pending"
         }
-    })
+    },{
+    timestamps: true
+})
 
 const Order = model('order', OrderSchema)
 module.exports = Order

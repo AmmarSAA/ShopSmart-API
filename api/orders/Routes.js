@@ -7,11 +7,13 @@
 const express = require('express')
 const router = express.Router()
 
-const { createOrder, getOrders } = require('./Controller')
+const { createOrder, getOrders, getOrderByName, updateOrder, deleteOrder } = require('./Controller')
 
 router.post('/createOrder', createOrder)
 router.get('/getOrders', getOrders)
-// router.put('/updateOrder', updateOrder)
+router.get('/getorder-byname', getOrderByName)
+router.put('/update-order', updateOrder)
+router.delete('/delete-order', deleteOrder)
 
 
 module.exports = router
