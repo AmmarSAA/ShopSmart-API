@@ -35,11 +35,21 @@ const OrderSchema = new Schema(
         },
         status: {
             type: String,
+<<<<<<< HEAD:api/orders/Model.js
             default : "pending"
         }
     },{
     timestamps: true
 })
+=======
+            default: "pending",
+            required: true
+        }
+    },
+    {
+        timestamps: true, // Automatically manage createdAt and updatedAt fields
+    })
+>>>>>>> ac51b1e794ba5c8f299500be9ceed34e07cae4ce:api/order/Model.js
 
 const Order = model('order', OrderSchema)
 module.exports = Order
