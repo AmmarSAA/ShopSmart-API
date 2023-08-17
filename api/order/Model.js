@@ -35,12 +35,12 @@ const OrderSchema = new Schema(
         },
         status: {
             type: String,
-            default : "pending",
-            required : true
+            default: "pending",
+            required: true
         }
-    },{
+    }, {
     timestamps: true
 })
- 
+
 const Order = model('order', OrderSchema)
 module.exports = Order
