@@ -1,7 +1,10 @@
 # ShopSmart API
 
-Table of Contents
+Discover Your Style, Shop with Ease
+
+## Table of Contents
 - [ShopSmart API](#shopsmart-api)
+  - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Endpoints](#endpoints)
     - [User Management](#user-management)
@@ -58,8 +61,11 @@ The ShopSmart API is a powerful backend application built using Express and Mong
 
 Before running the API, make sure to set the following environment variables in a `.env` file:
 
+- `SERVER_PORT`: Port for API to run on.
 - `MONGO_URI`: Your MongoDB connection string.
 - `JWT_SECRET`: Secret key for JWT token generation.
+- `NODEMAILER_EMAIL`: Email for Emailing via nodemailer.
+- `NODEMAILER_PASSWORD`: Password for email.
 
 ## How to Run
 
