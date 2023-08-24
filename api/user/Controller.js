@@ -206,6 +206,7 @@ const userByID = async (req, res) => {
     }
 }
 
+///api/users/deleteUser
 const deleteUser = async (req, res) => {
 
     const { _id } = req.body

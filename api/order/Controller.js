@@ -12,7 +12,7 @@ const nodemailer = require("nodemailer");
 var Mailgen = require('mailgen');
 
 ///api/demomail
-const demomail = async (req, res) => {
+const ordermail = async (req, res) => {
     const { email, customerName } = req.body;
 
 
@@ -206,25 +206,7 @@ const createOrder = async (req, res) => {
 
 }
 
-const allOrders = async (req, res) => {
-    try {
-
-        await connect(process.env.MONGO_URI)
-        const orders = await Order.find()
-
-        res.status(201).json({
-            orders
-        })
-
-    } catch (error) {
-        res.status(401).json({
-            message: error.message
-        })
-
-    }
-}
-
-const getOrders = async (req, res) => {
+const getOrder = async (req, res) => {
 
     try {
         await connect(process.env.MONGO_URI)
@@ -356,4 +338,4 @@ const deleteOrder = async (req, res) => {
 
 }
 
-module.exports = { demomail, createOrder, getOrders, getOrderByEmail, getOrderByID, updateOrder, deleteOrder, allOrders }
+module.exports = { ordermail, createOrder, getOrder, getOrderByEmail, getOrderByID, updateOrder, deleteOrder }

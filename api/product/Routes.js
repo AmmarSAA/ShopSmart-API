@@ -8,12 +8,13 @@ const express = require('express')
 const router = express.Router()
 
 const { getProduct, getProductByName, createProduct, deleteProduct, updateProduct } = require('./Controller')
+const authenticateToken = require('../../middleware/authenticateToken')
 
 router.get('/getProduct', getProduct)
 router.get('/getProductByName', getProductByName)
-router.post('/createProduct', createProduct)
-router.delete('/deleteProduct', deleteProduct)
-router.put('/updateProduct', updateProduct)
+router.post('/createProduct', authenticateToken, createProduct)
+router.delete('/deleteProduct', authenticateToken, deleteProduct)
+router.put('/updateProduct', authenticateToken, updateProduct)
 
 
 
